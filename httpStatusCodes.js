@@ -1,0 +1,9 @@
+const HTTP_ERROR_STATUS = 500;
+const HTTP_NO_CONTENT = 204;
+const HTTP_CREATED = 201;
+
+export {
+    HTTP_ERROR_STATUS,
+    HTTP_NO_CONTENT,
+    HTTP_CREATED
+};
