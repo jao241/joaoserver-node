@@ -1,47 +1,25 @@
 import fs from "fs";
 
-export class livros {
-    db = "db/livros.json";
+import livro from "../models/livros.js";
 
+export class livros {
     async getTodosLivros() {
-        return await JSON.parse(fs.readFileSync(this.db));
+        return await livro.find();
     }
 
     async getLivro(id) {
-        const livros = await this.getTodosLivros();
-
-        return livros.find((valor) => valor.id == id);
+        return await livro.findById(id);
     }
 
     async postLivro(novoLivro) {
-        const livros = await this.getTodosLivros();
-
-        fs.writeFileSync(this.db, JSON.stringify([...livros, novoLivro]));
+        await livro.create(novoLivro);
     }
 
     async updateLivro(novoDadoLivro, id) {
-        const livros = await this.getTodosLivros();
-
-        const indiceModificado = livros.findIndex((livro) => livro.id == id);
-
-        const conteudoMudaddo = {
-            ...livros[indiceModificado], ...novoDadoLivro
-        };
-
-        livros[indiceModificado] = conteudoMudaddo;
-
-        fs.writeFileSync(this.db, JSON.stringify(livros));
+        await livro.findByIdAndUpdate(id, novoDadoLivro);
     }
 
     async deleteLivro(id) {
-        let livros = await this.getTodosLivros();
-
-        livros = livros.filter((livro) => {
-            if (!livro || livro.id != id) {
-                return livro;
-            }
-        });
-        
-        fs.writeFileSync(this.db, JSON.stringify(livros));
+        return await livro.findByIdAndDelete(id);
     }
 }

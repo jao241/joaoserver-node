@@ -10,7 +10,7 @@ export class livroControlador {
     }
 
     async getLivro(id) {
-        if (id && Number(id)) {
+        if (id) {
             const livro = await livroService.getLivro(id);
 
             return livro;
@@ -27,7 +27,7 @@ export class livroControlador {
     }
 
     async updateLivro(livroModificacao, id) {
-        if (id && Number(id)) {
+        if (id) {
             await livroService.updateLivro(livroModificacao, id);
         } else {
             return {
@@ -38,7 +38,7 @@ export class livroControlador {
     }
 
     async deleteLivro(id) {
-        if (id && Number(id)) {
+        if (id) {
             await livroService.deleteLivro(id);
         } else {
             return {
